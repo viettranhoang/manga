@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MangaModule } from './mangas/presentation/MangaModule';
+import { MangaModule } from './mangas/MangaModule';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { GenreModule } from './genres/GenreModule';
 import { GenreEntity } from './genres/data/mariadb/model/GenreEntity';
@@ -10,11 +10,11 @@ import { GenreEntity } from './genres/data/mariadb/model/GenreEntity';
     GenreModule,
     SequelizeModule.forRoot({
       dialect: 'mariadb',
-      host: '116.203.62.125',
-      port: 3306,
-      username: 'manga4ever',
-      password: 'pleasegivemeCokE66668888',
-      database: 'manga4ever',
+      host: 'localhost',
+      port: 9000,
+      username: 'vit',
+      password: 'root',
+      database: 'mysql',
       models: [GenreEntity],
     }),
   ],

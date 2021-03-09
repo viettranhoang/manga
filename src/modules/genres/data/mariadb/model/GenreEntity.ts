@@ -1,5 +1,5 @@
-import { Column, Model, Table } from 'sequelize-typescript';
-
+import {Column, DataType, Model, Table} from 'sequelize-typescript';
+import SequelizeSlugify from 'sequelize-slugify';
 @Table({
   timestamps: false,
   tableName: 'genre',
@@ -11,6 +11,9 @@ export class GenreEntity extends Model<GenreEntity> {
   @Column
   name: string;
 
-  @Column
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+  })
   slug: string;
 }

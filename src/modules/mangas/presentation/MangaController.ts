@@ -9,4 +9,9 @@ export class MangaController {
   async getHello(): Promise<string> {
     return await this.mangaService.getAllMangas();
   }
+
+  @Get('/crawl')
+  async crawl(): Promise<any> {
+    return this.mangaService.crawlMangas();
+  }
 }

@@ -1,4 +1,4 @@
-import { GenreDTO } from '../model/GenreDTO';
+import { GenreDTO } from './GenreDTO';
 
 export interface GetAllGenresResponseDTO {
   genres: GenreDTO[];

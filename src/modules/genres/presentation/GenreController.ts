@@ -1,18 +1,18 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { GenreService } from './GenreService';
-import { GenreDTO } from './model/GenreDTO';
+import { GetAllGenresResponseDTO } from './model/GetAllGenresResponseDTO';
 
 @Controller('genres')
 export class GenreController {
   constructor(private readonly appService: GenreService) {}
 
   @Get()
-  async getAllGenres(@Req() req): Promise<GenreDTO[]> {
+  async getAllGenres(@Req() req): Promise<GetAllGenresResponseDTO> {
     return this.appService.getAllGenres(req);
   }
 
-  @Get('/save')
-  async save(): Promise<void> {
-    return await this.appService.saveGenres();
+  @Get('/crawl')
+  async crawl(): Promise<any> {
+    return this.appService.crawlGenres();
   }
 }

@@ -1,19 +1,23 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { GetAllGenresUseCase } from '../domain/usecase/GetAllGenresUseCase';
+import {
+  GetAllGenresRequestDTO,
+  GetAllGenresUseCase,
+} from '../domain/usecase/GetAllGenresUseCase';
 import { SaveGenresUseCase } from '../domain/usecase/SaveGenresUseCase';
-import { GetAllGenresRequestDTO } from '../domain/usecase/GetAllGenresRequestDTO';
 import { Request } from 'express';
-import { GenreDTO } from './model/GenreDTO';
 import { GenreDTOMapper } from './model/GenreDTOMapper';
+import { GetAllGenresResponseDTO } from './model/GetAllGenresResponseDTO';
+import { CrawlGenresUseCase } from '../domain/usecase/CrawlGenresUseCase';
 
 @Injectable()
 export class GenreService {
   constructor(
     private readonly getAllGenresUseCase: GetAllGenresUseCase,
     private readonly saveGenresUseCase: SaveGenresUseCase,
+    private readonly crawlGenresUseCase: CrawlGenresUseCase,
   ) {}
 
-  async getAllGenres(req: Request): Promise<GenreDTO[]> {
+  async getAllGenres(req: Request): Promise<GetAllGenresResponseDTO> {
     const dto: GetAllGenresRequestDTO = {
       offset: Number(req.query.offset),
       limit: Number(req.query.limit),
@@ -33,18 +37,18 @@ export class GenreService {
             );
         }
       } else {
-        const genres = result.value
-          .getValue()
-          .map((it) => GenreDTOMapper.mapToDTO(it));
+        const genres = result.value.getValue();
 
-        return genres;
+        return {
+          genres: genres.map((it) => GenreDTOMapper.mapToDTO(it)),
+        };
       }
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  saveGenres(): Promise<void> {
-    return this.saveGenresUseCase.execute();
+  crawlGenres(): Promise<any> {
+    return this.crawlGenresUseCase.execute();
   }
 }

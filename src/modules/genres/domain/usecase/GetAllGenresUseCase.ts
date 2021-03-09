@@ -4,7 +4,11 @@ import { GenreRepository } from '../repository/GenreRepository';
 import { AppError } from '../../../../shared/core/AppError';
 import { Either, left, Result, right } from '../../../../shared/core/Result';
 import { UseCase } from '../../../../shared/core/UseCase';
-import { GetAllGenresRequestDTO } from './GetAllGenresRequestDTO';
+
+export interface GetAllGenresRequestDTO {
+  offset?: number;
+  limit?: number;
+}
 
 type Response = Either<AppError.UnexpectedError, Result<Genre[]>>;
 

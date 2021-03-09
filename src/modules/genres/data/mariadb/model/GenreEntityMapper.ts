@@ -10,7 +10,8 @@ export class GenreEntityMapper {
     const entity = new GenreEntity();
     entity.malId = model.malId;
     entity.name = model.name;
-    entity.slug = model.slug;
+    entity.slug = model.name + '-' + entity.id;
+
     return entity;
   }
 
